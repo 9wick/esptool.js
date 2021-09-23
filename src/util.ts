@@ -171,3 +171,25 @@ export function toByteArray(str: string): Uint8Array {
 export function toHex(value: number, size = 2): string {
   return "0x" + value.toString(16).toUpperCase().padStart(size, "0");
 }
+
+export function atob(ascii: string): string {
+  if (typeof window !== "undefined" && window.atob) {
+    return window.atob(ascii);
+  } else if (typeof Buffer !== "undefined") {
+    const buf = Buffer.from(ascii, "ascii");
+    const base64: string = buf.toString("base64");
+    return base64;
+  }
+  throw new Error("unsupported environment");
+}
+
+export function btoa(base64: string): string {
+  if (typeof window !== "undefined" && window.atob) {
+    return window.btoa(base64);
+  } else if (typeof Buffer !== "undefined") {
+    const buf = Buffer.from(base64, "base64");
+    const ascii: string = buf.toString("ascii");
+    return ascii;
+  }
+  throw new Error("unsupported environment");
+}

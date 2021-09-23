@@ -2,7 +2,7 @@
 // Use of this source code is governed by an MIT-style license that can be
 // found in the LICENSE file.
 
-import { toByteArray } from "./util";
+import { toByteArray, atob } from "./util";
 
 export type Stub = {
   text: Uint8Array;
