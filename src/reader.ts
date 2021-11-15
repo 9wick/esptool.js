@@ -85,6 +85,7 @@ export class Reader {
           }
 
           if (!value) {
+            await sleep(0);
             continue;
           }
 

@@ -15,8 +15,11 @@
     "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "es2017"],
     "typeRoots": [
-      "src/@types",
+      "src/@types"
     ],
+    "types": ["node"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "preset": "ts-jest",
   "include": [
