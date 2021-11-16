@@ -1,6 +1,6 @@
 const { EspLoader } = require("./build/index");
 const SerialPort = require("serialport");
-const { MySerial } = require("./build/node/serial");
+const { EsptoolSerial } = require("./build/node/serial");
 
 const fs = require("fs");
 const { sleep } = require("./build/util");
@@ -8,23 +8,13 @@ const { sleep } = require("./build/util");
 const partitions = [
   {
     name: "bootloader",
-    data: fs.readFileSync("./obnizos__esp32w__3.5.0__bootloader.bin"),
+    data: fs.readFileSync("./bootloader.bin"),
     offset: 0x1000,
-  },
-  {
-    name: "partition",
-    data: fs.readFileSync("./obnizos__esp32w__3.5.0__partition.bin"),
-    offset: 0x8000,
-  },
-  {
-    name: "app",
-    data: fs.readFileSync("./obnizos__esp32w__3.5.0.bin"),
-    offset: 0x10000,
   },
 ];
 
 (async () => {
-  const port = new MySerial("/dev/tty.SLAB_USBtoUART", {
+  const port = new EsptoolSerial("/dev/tty.SLAB_USBtoUART", {
     baudRate: 115200,
     autoOpen: false,
   });
@@ -63,4 +53,5 @@ const partitions = [
   console.log("successfully written device partitions");
   console.log("flashing succeeded");
   await port.close();
+  console.log("closed");
 })();

@@ -2,7 +2,7 @@ import NodeSerialPort from "serialport";
 import { ReadableOwner } from "../reader";
 
 export class DummyReader {
-  constructor(private serial: MySerial) {}
+  constructor(private serial: EsptoolSerial) {}
 
   read() {
     const value = this.serial.port.read();
@@ -21,7 +21,7 @@ export class DummyReader {
   }
 }
 
-export class MySerial implements ReadableOwner {
+export class EsptoolSerial implements ReadableOwner {
   port: NodeSerialPort;
   readonly readable: ReadableStream<Uint8Array>;
 

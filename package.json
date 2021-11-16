@@ -1,11 +1,11 @@
 {
-  "name": "@toit/esptool.js",
+  "name": "@9wick/esptool.js",
   "version": "0.9.1",
-  "description": "TypeScript port of the esptool",
+  "description": "TypeScript/Nodejs port of the esptool",
   "main": "build/index.js",
   "types": "build/index.d.ts",
-  "repository": "git@github.com:toitware/esptool.js.git",
-  "author": "Toitware ApS",
+  "repository": "git@github.com:9wick/esptool.js.git",
+  "author": "9wick (forked from Toitware ApS)",
   "license": "MIT",
   "scripts": {
     "build": "tsc -b tsconfig.json",

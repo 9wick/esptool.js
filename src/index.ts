@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import { ConnectError, UnknownChipFamilyError } from "./errors";
-import { MySerial } from "./node/serial";
+import { EsptoolSerial } from "./node/serial";
 import { Reader } from "./reader";
 import { ESP32, Stub } from "./stubs";
 import { sleep, toByteArray, toHex, Uint8Buffer, Uint8BufferSlipEncode } from "./util";
@@ -84,14 +84,14 @@ export class EspLoader {
   private _efuses: Uint32Array | undefined;
 
   private options: EspLoaderOptions;
-  private serialPort: MySerial;
+  private serialPort: EsptoolSerial;
   private isStub = false;
 
   private baudRate = ESP_ROM_BAUD;
 
   private reader: Reader;
 
-  constructor(serialPort: MySerial, options?: Partial<EspLoaderOptions>) {
+  constructor(serialPort: EsptoolSerial, options?: Partial<EspLoaderOptions>) {
     this.options = Object.assign(
       {
         flashSize: 4 * 1024 * 1024,

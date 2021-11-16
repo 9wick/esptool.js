@@ -30,7 +30,11 @@ export type Partition = {
 // TODO: Here you have to specify the partitions you want to flash to the ESP32.
 const partitions: Partition[] = [];
 
-await port.open({ baudRate: 115200 });
+const port = new EsptoolSerial("/dev/tty.SLAB_USBtoUART", {
+  baudRate: 115200,
+  autoOpen: false,
+});
+await port.open();
 try {
   const loader = new EspLoader(port, { debug: true, logger: console });
   options.logger.log("connecting...");
