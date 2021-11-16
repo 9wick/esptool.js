@@ -6,10 +6,10 @@ export class DummyReader {
 
   read() {
     const value = this.serial.port.read();
-    if (value) {
-      console.log("data", value);
-      console.log("str", value.toString());
-    }
+    // if (value) {
+    //   console.log("data", value);
+    //   console.log("str", value.toString());
+    // }
     const done = false;
     return { value, done };
   }
@@ -33,14 +33,14 @@ export class MySerial implements ReadableOwner {
     //   console.log("str", data.toString());
     // });
     this.port.on("open", () => {
-      console.log("open");
+      // console.log("open");
     });
     this.port.on("error", (error) => {
       console.log("error", error);
     });
 
     this.port.on("close", (reason: any) => {
-      console.log("close", reason);
+      // console.log("close", reason);
     });
 
     this.readable = {
@@ -56,7 +56,7 @@ export class MySerial implements ReadableOwner {
 
   write(data: Uint8Array) {
     const dataArray = Array.from(data);
-    console.log("write", Buffer.from(dataArray));
+    // console.log("write", Buffer.from(dataArray));
     return new Promise((resolve, reject) => {
       this.port.write(dataArray, (error: any) => {
         if (error) {
@@ -83,15 +83,17 @@ export class MySerial implements ReadableOwner {
     }
     await this.wait(1);
     return new Promise((resolve, reject) => {
-      console.log("port set start");
       this.port.set(param, (error) => {
-        console.log("port set ");
         if (error) {
           reject(error);
         }
         resolve(null);
       });
     });
+  }
+
+  setBaudRate(baudRate: number) {
+    this.port.update({ baudRate });
   }
 
   open({ baudRate }: { baudRate?: number } = {}) {
@@ -112,6 +114,9 @@ export class MySerial implements ReadableOwner {
   }
 
   close() {
+    if (!this.port.isOpen) {
+      return;
+    }
     return new Promise((resolve, reject) => {
       this.port.close((error) => {
         if (error) {

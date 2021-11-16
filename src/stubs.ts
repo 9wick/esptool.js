@@ -25,5 +25,4 @@ export class ESP32 {
   static data = Uint8Array.from(atobuff("CMD8Pw=="));
   static dataStart = 1073605544;
 }
-console.log("Buffer.from(Array.from(ESP32.text))");
-console.log(3432, ESP32.text.length);
+

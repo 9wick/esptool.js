@@ -411,12 +411,15 @@ export class EspLoader {
     await this.checkCommand(ESP_CHANGE_BAUDRATE, buffer);
 
     // Close the read loop and port
-    await this.disconnect();
-    await this.serialPort.close();
+    // await this.disconnect();
+    // await this.serialPort.close();
+    //
+    // // Reopen the port and read loop
+    // await this.serialPort.open({ baudRate: baud });
+    // this.reader.start();
 
-    // Reopen the port and read loop
-    await this.serialPort.open({ baudRate: baud });
-    this.reader.start();
+    this.serialPort.setBaudRate(baud);
+
     await sleep(50);
     const wasSilent = await this.reader.waitSilent(10, 200);
     if (!wasSilent) {
