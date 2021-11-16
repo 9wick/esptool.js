@@ -42,6 +42,7 @@
   "dependencies": {
     "@types/node": "^16.11.7",
     "@types/serialport": "^8.0.2",
-    "serialport": "^9.2.5"
+    "serialport": "^9.2.5",
+    "wtfnode": "^0.9.1"
   }
 }

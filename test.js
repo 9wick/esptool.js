@@ -4,14 +4,7 @@ const { EsptoolSerial } = require("./build/node/serial");
 
 const fs = require("fs");
 const { sleep } = require("./build/util");
-
-const partitions = [
-  {
-    name: "bootloader",
-    data: fs.readFileSync("./bootloader.bin"),
-    offset: 0x1000,
-  },
-];
+var wtf = require("wtfnode");
 
 (async () => {
   const port = new EsptoolSerial("/dev/tty.SLAB_USBtoUART", {
@@ -42,6 +35,10 @@ const partitions = [
   console.log("start erase");
   await espTool.eraseFlash();
   console.log("erased");
+  await espTool.disconnect();
+  // await port.close();
+  wtf.dump();
+  return;
 
   for (let i = 0; i < partitions.length; i++) {
     console.log("\nWriting partition: " + partitions[i].name);

@@ -208,11 +208,24 @@ export class Completer<T> {
 
   public constructor(timeoutMs: number | undefined = undefined) {
     this.promise = new Promise<T>((resolve, reject) => {
-      this._complete = resolve;
-      this._reject = reject;
+      let timeoutHandle: any = null;
+      this._complete = (...args) => {
+        if (timeoutHandle) {
+          clearTimeout(timeoutHandle);
+          timeoutHandle = null;
+        }
+        return resolve(...args);
+      };
+      this._reject = (...args) => {
+        if (timeoutHandle) {
+          clearTimeout(timeoutHandle);
+          timeoutHandle = null;
+        }
+        return reject(...args);
+      };
       if (timeoutMs !== undefined) {
         if (timeoutMs > 0) {
-          setTimeout(() => reject(TimeoutError), timeoutMs);
+          timeoutHandle = setTimeout(() => reject(TimeoutError), timeoutMs);
         } else {
           reject(TimeoutError);
         }

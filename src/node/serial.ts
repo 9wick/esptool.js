@@ -17,7 +17,7 @@ export class DummyReader {
   releaseLock() {}
 
   cancel() {
-    this.serial.port.close();
+    this.serial.close();
   }
 }
 
