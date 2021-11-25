@@ -1,6 +1,6 @@
 {
   "name": "@9wick/esptool.js",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "TypeScript/Nodejs port of the esptool",
   "main": "build/index.js",
   "types": "build/index.d.ts",
